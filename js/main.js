@@ -27,31 +27,31 @@ $(document).ready(function () {
 // round slider for % 
 
     $(window).scroll(function () {
-        
+
         precent();
 
-        
+
 
     });
-     precent();
-    
-    function precent (){
+    precent();
+
+    function precent() {
         var vh = $(window).height();
         var scroll = $(window).scrollTop();
 
         $('.cont').each(function () {
             var position = $(this).offset().top;
-            
-            if(position < vh + scroll - 100){
-                
-            var val = parseInt($(this).attr('data-pct'));
-            var $circle = $(this).find('.svg .bar');
 
-           
+            if (position < vh + scroll - 100) {
+
+                var val = parseInt($(this).attr('data-pct'));
+                var $circle = $(this).find('.svg .bar');
+
+
                 var r = $circle.attr('r');
                 var c = Math.PI * (r * 2);
 
-                
+
 
                 var pct = ((100 - val) / 100) * c;
 
@@ -62,19 +62,19 @@ $(document).ready(function () {
 
 
 
-                //$('#cont').attr('data-pct', val);
-            
+            //$('#cont').attr('data-pct', val);
+
         });
     }
 
 
-if ($('.owl-carousel').length > 0) {
+    if ($('.owl-carousel').length > 0) {
         $('.team').owlCarousel({
             loop: true,
             margin: 10,
-            dots:false,
-            nav:true,
-            navText:['<','>'],
+            dots: false,
+            nav: true,
+            navText: ['<', '>'],
             responsiveClass: true,
             responsive: {
                 0: {
@@ -88,14 +88,55 @@ if ($('.owl-carousel').length > 0) {
                     items: 3,
 
                 },
-               
+
             }
         });
 
-       
-    };
 
+    }
+    ;
+   var currentRating = $('#example-fontawesome-o').data('current-rating');
 
+        $('.stars-example-fontawesome-o .current-rating')
+            .find('span')
+            .html(currentRating);
+
+        $('.stars-example-fontawesome-o .clear-rating').on('click', function(event) {
+            event.preventDefault();
+
+            $('#example-fontawesome-o')
+                .barrating('clear');
+        });
+
+        $('#example-fontawesome-o').barrating({
+            theme: 'fontawesome-stars-o',
+            showSelectedRating: false,
+            initialRating: currentRating,
+            onSelect: function(value, text) {
+                if (!value) {
+                    $('#example-fontawesome-o')
+                        .barrating('clear');
+                } else {
+                    $('.stars-example-fontawesome-o .current-rating')
+                        .addClass('hidden');
+
+                    $('.stars-example-fontawesome-o .your-rating')
+                        .removeClass('hidden')
+                        .find('span')
+                        .html(value);
+                }
+            },
+            onClear: function(value, text) {
+                $('.stars-example-fontawesome-o')
+                    .find('.current-rating')
+                    .removeClass('hidden')
+                    .end()
+                    .find('.your-rating')
+                    .addClass('hidden');
+            }
+        });
+    
+    
 
 
 
